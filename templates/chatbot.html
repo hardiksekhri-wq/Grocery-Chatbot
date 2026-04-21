@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Chatbot – GrocerySmart</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- ======== NAVIGATION ======== -->
+  <nav class="navbar">
+    <div class="nav-brand">🛒 GrocerySmart</div>
+    <div class="nav-links">
+      <a href="/" class="nav-link">My List</a>
+      <a href="/suggestions" class="nav-link">Suggestions</a>
+      <a href="/chatbot" class="nav-link active">AI Chat</a>
+    </div>
+  </nav>
+
+  <!-- ======== HERO ======== -->
+  <div class="hero">
+    <div class="hero-badge">✦ Gemini Powered</div>
+    <h1 class="hero-title">Grocery <span class="accent">AI Chat</span></h1>
+    <p class="hero-sub">Ask me anything about groceries, recipes, or your shopping list!</p>
+  </div>
+
+  <div class="container">
+    <div class="card chat-card">
+
+      <!-- Domain notice -->
+      <div class="domain-notice">
+        🥕 This chatbot <strong>only answers grocery-related questions</strong>.
+        Ask about items, recipes, budgets, or your shopping list.
+      </div>
+
+      <!-- ======== CHAT WINDOW ======== -->
+      <!-- All messages appear here as the conversation grows -->
+      <div class="chat-window" id="chat-window">
+
+        <!-- Welcome message from bot (always shown first) -->
+        <div class="chat-bubble bot-bubble">
+          <div class="bubble-avatar">🤖</div>
+          <div class="bubble-text">
+            Hi there! 👋 I'm your Grocery Shopping Assistant.<br/>
+            Ask me about grocery items, recipes, budgets, or your shopping list.
+            I can even see what's already in your list!
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ======== INPUT AREA ======== -->
+      <div class="chat-input-row">
+        <input
+          type="text"
+          id="chat-input"
+          class="text-input chat-text-input"
+          placeholder="Ask something… e.g. 'What can I make with eggs and milk?'"
+          autocomplete="off"
+        />
+        <!-- Send button (also triggered by Enter key via JS) -->
+        <button class="btn btn-primary" id="send-btn" onclick="sendMessage()">Send ➤</button>
+      </div>
+
+      <!-- Sample questions the user can click to autofill -->
+      <div class="sample-qs">
+        <span class="sq-label">Try asking:</span>
+        <button class="sq-btn" onclick="fillQuestion('What should I add to a weekly grocery list?')">
+          Weekly list ideas
+        </button>
+        <button class="sq-btn" onclick="fillQuestion('How do I budget ₹500 for groceries?')">
+          ₹500 budget tips
+        </button>
+        <button class="sq-btn" onclick="fillQuestion('What recipe can I make with what I have?')">
+          Recipe from my list
+        </button>
+      </div>
+
+    </div>
+
+    <div class="quick-links">
+      <a href="/" class="ql-card">
+        <span class="ql-icon">📝</span>
+        <span class="ql-label">Back to My List</span>
+      </a>
+      <a href="/suggestions" class="ql-card">
+        <span class="ql-icon">📊</span>
+        <span class="ql-label">View Suggestions</span>
+      </a>
+    </div>
+  </div>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>

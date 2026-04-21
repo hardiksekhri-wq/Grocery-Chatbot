@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Top Suggestions – GrocerySmart</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- ======== NAVIGATION ======== -->
+  <nav class="navbar">
+    <div class="nav-brand">🛒 GrocerySmart</div>
+    <div class="nav-links">
+      <a href="/" class="nav-link">My List</a>
+      <a href="/suggestions" class="nav-link active">Suggestions</a>
+      <a href="/chatbot" class="nav-link">AI Chat</a>
+    </div>
+  </nav>
+
+  <!-- ======== HERO ======== -->
+  <div class="hero">
+    <div class="hero-badge">✦ Smart Picks</div>
+    <h1 class="hero-title">Top <span class="accent">Suggestions</span></h1>
+    <p class="hero-sub">Your most-bought items — ranked by how often you add them.</p>
+  </div>
+
+  <div class="container">
+
+    {% if top_items %}
+
+    <!-- ======== PODIUM CARDS (top 3) ======== -->
+    <div class="podium-row">
+      {% for item, count in top_items[:3] %}
+      <div class="podium-card rank-{{ loop.index }}">
+        <!-- Medal emoji based on rank -->
+        <div class="medal">
+          {% if loop.index == 1 %}🥇{% elif loop.index == 2 %}🥈{% else %}🥉{% endif %}
+        </div>
+        <div class="podium-name">{{ item | title }}</div>
+        <div class="podium-count">
+          Added <strong>{{ count }}</strong> time{% if count != 1 %}s{% endif %}
+        </div>
+        <!-- Visual bar showing relative frequency -->
+        <div class="freq-bar">
+          <div class="freq-fill" style="width: {{ (count / top_items[0][1]) * 100 }}%;"></div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- ======== REMAINING ITEMS (4 and 5) ======== -->
+    {% if top_items|length > 3 %}
+    <div class="card">
+      <h2 class="card-title" style="margin-bottom:1.2rem;">Also Frequently Bought</h2>
+      <ul class="other-list">
+        {% for item, count in top_items[3:] %}
+        <li class="other-item">
+          <span class="other-rank">#{{ loop.index + 3 }}</span>
+          <span class="other-name">{{ item | title }}</span>
+          <span class="other-count">{{ count }}×</span>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    {% else %}
+    <!-- Shown when no items in DB yet -->
+    <div class="card">
+      <div class="empty-state">
+        <div class="empty-icon">📊</div>
+        <p>No data yet!<br/>Add some grocery items first to see suggestions.</p>
+        <a href="/" class="btn btn-primary" style="margin-top:1rem;">Go Add Items</a>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- ======== HOW IT WORKS ======== -->
+    <div class="card info-card">
+      <h2 class="card-title">How Does This Work?</h2>
+      <p class="info-text">
+        Every time you add a grocery item, it's saved in a local
+        <strong>SQLite database</strong>. Python's built-in
+        <code>collections.Counter</code> counts how many times each item
+        appears and returns the most common ones. That's it — no AI needed here,
+        just smart data analysis!
+      </p>
+    </div>
+
+    <div class="quick-links">
+      <a href="/" class="ql-card">
+        <span class="ql-icon">📝</span>
+        <span class="ql-label">Back to My List</span>
+      </a>
+      <a href="/chatbot" class="ql-card">
+        <span class="ql-icon">🤖</span>
+        <span class="ql-label">Chat with AI</span>
+      </a>
+    </div>
+
+  </div>
+</body>
+</html>

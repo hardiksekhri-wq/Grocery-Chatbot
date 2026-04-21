@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Grocery List</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <!-- Google Fonts: Playfair Display (headings) + DM Sans (body) -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- ======== NAVIGATION ======== -->
+  <nav class="navbar">
+    <div class="nav-brand">🛒 GrocerySmart</div>
+    <div class="nav-links">
+      <a href="/" class="nav-link active">My List</a>
+      <a href="/suggestions" class="nav-link">Suggestions</a>
+      <a href="/chatbot" class="nav-link">AI Chat</a>
+    </div>
+  </nav>
+
+  <!-- ======== HERO SECTION ======== -->
+  <div class="hero">
+    <div class="hero-badge">✦ AI-Powered</div>
+    <h1 class="hero-title">Your Smart<br/><span class="accent">Grocery List</span></h1>
+    <p class="hero-sub">Add items, get smart suggestions, and chat with your AI grocery assistant.</p>
+  </div>
+
+  <!-- ======== ADD ITEM FORM ======== -->
+  <div class="container">
+    <div class="card add-card">
+      <h2 class="card-title">Add Grocery Item</h2>
+
+      <!-- Flash message area (shown after add/error) -->
+      <div id="flash-msg" class="flash hidden"></div>
+
+      <div class="input-row">
+        <!-- Text input for item name -->
+        <input
+          type="text"
+          id="item-input"
+          class="text-input"
+          placeholder="e.g. Milk, Eggs, Tomatoes…"
+          autocomplete="off"
+        />
+        <!-- Add button triggers JS -->
+        <button class="btn btn-primary" onclick="addItem()">+ Add</button>
+      </div>
+    </div>
+
+    <!-- ======== GROCERY LIST TABLE ======== -->
+    <div class="card list-card">
+      <div class="list-header">
+        <h2 class="card-title">Saved Items</h2>
+        <span class="item-count">{{ items|length }} item{% if items|length != 1 %}s{% endif %}</span>
+      </div>
+
+      {% if items %}
+      <table class="grocery-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Item Name</th>
+            <th>Date Added</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody id="item-tbody">
+          {% for item in items %}
+          <tr id="row-{{ item.id }}">
+            <td class="row-id">{{ loop.index }}</td>
+            <td class="row-name">{{ item.item_name }}</td>
+            <td class="row-date">{{ item.date_added }}</td>
+            <td>
+              <!-- Delete button calls JS deleteItem() with the item's DB id -->
+              <button class="btn btn-danger btn-sm"
+                      onclick="deleteItem({{ item.id }})">✕</button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      {% else %}
+      <!-- Shown when the list is empty -->
+      <div class="empty-state">
+        <div class="empty-icon">🥦</div>
+        <p>Your grocery list is empty.<br/>Add your first item above!</p>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- ======== QUICK LINKS ======== -->
+    <div class="quick-links">
+      <a href="/suggestions" class="ql-card">
+        <span class="ql-icon">📊</span>
+        <span class="ql-label">View Top Suggestions</span>
+      </a>
+      <a href="/chatbot" class="ql-card">
+        <span class="ql-icon">🤖</span>
+        <span class="ql-label">Chat with AI</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Load our JavaScript file -->
+  <script src="/static/script.js"></script>
+</body>
+</html>
