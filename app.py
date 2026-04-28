@@ -13,7 +13,7 @@ import os
 # ---- Flask app setup ----
 app = Flask(__name__)
 
-# ---- Gemini API Key (replace with your actual key) ----
+
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 # ---- Configure Gemini ----

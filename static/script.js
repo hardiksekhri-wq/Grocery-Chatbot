@@ -180,7 +180,8 @@ function appendBubble(container, text, sender) {
   // Message text (preserve newlines from API)
   const textEl = document.createElement("div");
   textEl.classList.add("bubble-text");
-  textEl.innerHTML = text.replace(/\n/g, "<br/>");
+  textEl.textContent = text;
+  
 
   bubble.appendChild(avatar);
   bubble.appendChild(textEl);

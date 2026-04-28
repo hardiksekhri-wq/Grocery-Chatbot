@@ -444,6 +444,8 @@ body {
   gap: 0.7rem;
   max-width: 85%;
   animation: fadeUp 0.3s ease;
+
+  width: fit-content;
 }
 
 @keyframes fadeUp {
@@ -472,6 +474,10 @@ body {
   border-radius: 12px;
   font-size: 0.93rem;
   line-height: 1.6;
+
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .bot-bubble .bubble-text {
